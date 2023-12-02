@@ -234,13 +234,17 @@ LinkedHash可按照插入顺序迭代
 | TreeMap       | 有序   | key不可重复 | 不安全  | k不可空,v可空 | 红黑树                |
 | HashTable     | 无序   | key不可重复 | 安全   | 不可空      | 数组+链表+synchronized |
 
-* HashMap.put()方法：负载因子 loadFactor=0.75，初始容量 initialCapacity=16，table第一次put时候初始化长度为初始容量(默认为16，如果指定则为最靠近指定值得2得n次方)，以后每当大于容量*负载因子则扩大两倍。
+* HashMap
   
   <img title="" src="file:///E:/markdown/images/hashmapPutMethod.png" alt="class文件格式" width="652">
-
-* 在jdk1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，数据存在红黑树中，以加快检索速度。
-
-* hashtable key value 不可为空，出于线程安全性考虑。
+  
+  * HashMap.put()方法：负载因子 loadFactor=0.75，初始容量 initialCapacity=16，table**第一次**put时候初始化长度为初始容量(**默认为16，如果有指定值则初始容量为最靠近指定值得2得n次方的数**)，以后每当大于 **容量 * 负载因子** 则数组扩大两倍。
+  
+  * 在jdk1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，数据存在红黑树中，以加快检索速度。
+  
+  * jdk1.7 HashMap采用头插法，1.8采用尾插法。
+  
+  * HashTable key value 不可为空，出于线程安全性考虑。
 
 ##### 7.4 Queue（队列）
 
