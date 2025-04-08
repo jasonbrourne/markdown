@@ -62,7 +62,7 @@
 
 ### 2. 执行流程
 
-<img title="" src="file:///E:/markdown/images/mysqlExecutingProcess.png" alt="执行流程图" width="670">
+<img src="images/mysqlExecutingProcess.png" alt="执行" width="694">
 
 ##### 2.1 执行组件
 
@@ -98,11 +98,11 @@ MySQL的缓存主要的作用是为了提升查询的效率，**缓存以key和v
 
 在执行器的阶段，此时**会调用存储引擎的API，API会调用存储引擎**，主要有一下存储的引擎，不过常用的还是myisam和innodb。
 
-![执行引擎](E:\markdown\images\mysqlExecutionEngine.png)
+![执行引擎](images/mysqlExecutionEngine.png)
 
 ##### 2.2 Server层执行流程
 
-![图](E:\markdown\images\mysqlExecutingProcess2.png)
+![图](images/mysqlExecutingProcess2.png)
 
 > **磁盘IO**：mysql的数据一般是以文件形式存储在磁盘上，检索是需要磁盘I/O操作的，就是把磁盘中的数据读取到内存中，或者是把内存中的数据写到磁盘中；与主存不同，磁盘I/O存在机械运动耗费(存在 寻道时间+旋转延迟+数据传输时间，前面两个时间是主要的时间花费)，因此磁盘I/O (对磁盘进行读写文件) 的时间消耗是巨大的。因此在对数据的处理的时候要尽量规避磁盘IO；当需要从磁盘读取数据时，系统会将数据地址传给磁盘，即确定要读的数据在哪个磁道，哪个扇区。为了读取这个扇区的数据，需要将磁头放到这个扇区上方，为了实现这一点，磁头需要移动对准相应磁道，这个过程叫做【寻道】，所耗费时间叫做【寻道时间】，然后磁盘旋转将目标扇区旋转到磁头下，这个过程耗费的时间叫做旋转时间。
 
@@ -216,7 +216,7 @@ Buffer Pool是数据库的一个内存组件，缓存的磁盘的上的真实数
 
 ###### 2.3.5 更新语句执行流程
 
-<img src="file:///E:/markdown/images/mysqlExecutingProcess3.png" title="" alt="图" width="689">
+<img src="images/mysqlExecutingProcess3.png" title="" alt="图" width="689">
 
 1. **查找数据**：查看符合条件的数据是否在内存**缓冲池**(Buffer Pool)中，如果不在，会直接从磁盘中加载到Buffer Pool中，并且对符合条件的数据加独占锁。如果存在则直接返回。
 
@@ -238,7 +238,7 @@ Buffer Pool是数据库的一个内存组件，缓存的磁盘的上的真实数
 
 ##### 2.4 Sql执行顺序
 
-![执行顺序](E:\markdown\images\sqlExecutionOrder.png)
+![执行顺序](images/sqlExecutionOrder.png)
 
 ##### 2.5 执行计划
 
@@ -507,11 +507,11 @@ MySQL主从复制是指数据可以从一个MySQL数据库服务器主节点复�
 
 ##### 5.2 原理
 
-![图](E:\markdown\images\mysqlMasterSlaveCopy.png)
+![图](images/mysqlMasterSlaveCopy.png)
 
 ##### 5.3 延时问题
 
-![图](E:\markdown\images\mysqlCopyDelay.png)
+![图](images/mysqlCopyDelay.png)
 
 mysql并行复制（MTS）
 
