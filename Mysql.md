@@ -62,7 +62,7 @@
 
 ### 2. 执行流程
 
-<img src="images/mysqlExecutingProcess.png" alt="执行" width="694">
+<img title="" src="images/mysqlExecutingProcess.png" alt="执行流程图" width="695">
 
 ##### 2.1 执行组件
 

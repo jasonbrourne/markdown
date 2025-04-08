@@ -63,7 +63,7 @@ Spring组件：
 
 Spring场景架构：
 
-<img title="" src="file:///E:/markdown/images/springComponent.png" alt="class文件格式" width="636">
+<img title="" src="images/springComponent.png" alt="class文件格式" width="636">
 
 ##### 1.2 Spring控制反转(IOC)
 
@@ -195,7 +195,7 @@ DI—Dependency Injection，即依赖注入：组件之间依赖关系由容器�
 
 **BeanFactory**：
 
-<img title="" src="file:///E:/markdown/images/beanFactoryClassDiagram.png" alt="" width="553">
+<img title="" src="images/beanFactoryClassDiagram.png" alt="" width="641">
 
 * **BeanFactory**：作为最顶层的一个接口类，它定义了IOC容器的基本功能规范，BeanFactory 有三个子类：ListableBeanFactory、HierarchicalBeanFactory 和AutowireCapableBeanFactory。
 - **ListableBeanFactory**：该接口定义了访问容器中 Bean 基本信息的若干方法，如查看Bean 的个数、获取某一类型 Bean 的配置名、查看容器中是否包括某一 Bean 等方法；
@@ -207,7 +207,7 @@ DI—Dependency Injection，即依赖注入：组件之间依赖关系由容器�
 
 **Registry**：
 
-<img title="" src="file:///E:/markdown/images/registyClassDiagram.png" alt="" width="629">
+<img title="" src="images/registyClassDiagram.png" alt="" width="668">
 
 * **AliasRegistry**：用于管理别名的公共接口，定义对别名的简单增删等操作。
 
@@ -264,7 +264,7 @@ IoC容器的接口类是ApplicationContext，继承BeanFactory对Bean规范（�
 
 * 接口设计：
   
-  <img title="" src="file:///E:/markdown/images/applicationContextExtendDiagram.png" alt="" width="629">
+  <img title="" src="images/applicationContextExtendDiagram.png" alt="" width="629">
   
   - **HierarchicalBeanFactory 和 ListableBeanFactory**： ApplicationContext 继承了 HierarchicalBeanFactory 和 ListableBeanFactory 接口，在此基础上，还通过多个其他的接口扩展了 BeanFactory 的功能：
   - **ApplicationEventPublisher**：让容器拥有发布应用上下文事件的功能，包括容器启动事件、关闭事件等。实现了 ApplicationListener 事件监听接口的 Bean 可以接收到容器事件 ， 并对事件进行响应处理 。 在 ApplicationContext 抽象实现类AbstractApplicationContext 中，我们可以发现存在一个 ApplicationEventMulticaster，它负责保存所有监听器，以便在容器产生上下文事件时通知这些事件监听者。
@@ -274,7 +274,7 @@ IoC容器的接口类是ApplicationContext，继承BeanFactory对Bean规范（�
 
 * 接口实现
   
-  <img title="" src="file:///E:/markdown/images/applicationContextClassDiagram.png" alt="" width="629">
+  <img title="" src="images/applicationContextClassDiagram.png" alt="" width="649">
   
   ConfigurableApplicationContext扩展于 ApplicationContext，它新增加了两个主要的方法： refresh()和 close()，让 ApplicationContext 具有启动、刷新和关闭应用上下文的能力。在应用上下文关闭的情况下调用 refresh()即可启动应用上下文，在已经启动的状态下，调用 refresh()则清除缓存并重新装载配置信息，而调用close()则可关闭应用上下文。这些接口方法为容器的控制管理带来了便利，但作为开发者，我们并不需要过多关心这些方法。AbstractApplicationContext实现了它。
   
@@ -449,7 +449,7 @@ AspectJ是一个java实现的AOP框架，它能够对java代码进行AOP编译�
 
 ApectJ采用的是静态织入的方式。ApectJ主要采用的是编译期织入，在这个期间使用AspectJ的acj编译器(类似javac)把aspect类编译成class字节码后，在java目标类编译时织入，即先编译aspect类再编译目标类。
 
-<img title="" src="file:///E:/markdown/images/aspectjWeave.png" alt="" width="556">
+<img title="" src="images/aspectjWeave.png" alt="" width="556">
 
 ###### 1.3.3 SpringAOP引入AspectJ
 
@@ -483,7 +483,7 @@ Spring 2.5对AspectJ的支持：在一些环境下，增加了对AspectJ的装�
 
 * AspectJ注解方式
   
-  <img title="" src="file:///E:/markdown/images/springAopAspectJAnnotation.png" alt="" width="627">
+  <img title="" src="images/springAopAspectJAnnotation.png" alt="" width="638">
 
 ###### 1.3.5 SpringAOP动态代理方式
 
@@ -543,7 +543,7 @@ org.springframework.web.context.ContextLoaderListener监听器配置在web.xml�
 
 DispatcherServlet 需要 WebApplicationContext（继承自 ApplicationContext） 来配置。WebApplicationContext 可以链接到ServletContext 和 Servlet。因为绑定了 ServletContext，这样应用程序就可以在需要的时候使用 RequestContextUtils 的静态方法访问 WebApplicationContext。
 
-<img src="file:///E:/markdown/images/dispatchServletClassDiagram.png" title="" alt="图" width="576">
+<img title="" src="images/dispatchServletClassDiagram.png" alt="图" width="669">
 
 1. servlet容器在创建servlet对象时会先调用该servlet的init方法。DispathcherServlet继承自HttpServletBean类中。
 
@@ -561,7 +561,7 @@ DispatcherServlet 需要 WebApplicationContext（继承自 ApplicationContext）
 
 ###### 1.5.3 DispatcherServlet执行流程
 
-<img title="" src="file:///E:/markdown/images/springMVCHandleProcess.png" alt="" width="656"> 
+<img title="" src="images/springMVCHandleProcess.png" alt="" width="669"> 
 
 调用DispatcherServlet中的doDispatch方法执行主流程。
 

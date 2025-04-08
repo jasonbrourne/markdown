@@ -98,7 +98,7 @@ Integer.toString(10) + " >>> " + Integer.toString(16 >>> 2);
 
 * 使用场景：ThreadLocalMap中的kv使用弱引用关联。
   
-  <img title="" src="file:///E:/markdown/images/weakReference.png" alt="class文件格式" width="610">
+  <img title="" src="images/weakReference.png" alt="class文件格式" width="610">
 
 #### 5.4 虚引用
 
@@ -106,7 +106,7 @@ Integer.toString(10) + " >>> " + Integer.toString(16 >>> 2);
 
 * 使用场景：堆外内存
   
-  <img title="" src="file:///E:/markdown/images/phantomReference.png" alt="class文件格式" width="613">
+  <img title="" src="images/phantomReference.png" alt="class文件格式" width="613">
 
 ---
 
@@ -172,7 +172,7 @@ method.invoke(person1, "method");
      
      cglib是code generate library，代码生成库。底层是通过asm操作字节码来生成代理类cglib不能对final类进行代理操作。
      
-     <img title="" src="file:///E:/markdown/images/cglib.png" alt="class文件格式" width="510">
+     <img title="" src="images/cglib.png" alt="class文件格式" width="510">
      
      ```java
      public class MyInterceptor implements MethodInterceptor {
@@ -205,7 +205,7 @@ method.invoke(person1, "method");
 
 ### 7. 集合
 
-<img title="" src="file:///E:/markdown/images/collections.png" alt="class文件格式" width="652">
+<img title="" src="images/collections.png" alt="class文件格式" width="652">
 
 ##### 7.1 List（有序，可重复）
 
@@ -236,7 +236,7 @@ LinkedHash可按照插入顺序迭代
 
 * HashMap
   
-  <img title="" src="file:///E:/markdown/images/hashmapPutMethod.png" alt="class文件格式" width="652">
+  <img title="" src="images/hashmapPutMethod.png" alt="class文件格式" width="652">
   
   * HashMap.put()方法：负载因子 loadFactor=0.75，初始容量 initialCapacity=16，table**第一次**put时候初始化长度为初始容量(**默认为16，如果有指定值则初始容量为最靠近指定值得2得n次方的数**)，以后每当大于 **容量 * 负载因子** 则数组扩大两倍。
   

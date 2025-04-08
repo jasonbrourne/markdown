@@ -6,7 +6,7 @@ Redis是一款内存高速缓存数据库。Redis全称为：**Remote Dictionary
 
 ### 1. 数据类型
 
-![图](E:\markdown\images\redisDataType.png)
+![图](images\redisDataType.png)
 
 ##### 1.1 String
 
@@ -20,7 +20,7 @@ String是redis中最基本的数据类型，一个key对应一个value。String�
 
 **常用命令**：
 
-<img src="file:///E:/markdown/images/redisStringCommand.png" title="" alt="图" width="374">
+<img src="images/redisStringCommand.png" title="" alt="图" width="374">
 
 **使用场景：**
 
@@ -36,7 +36,7 @@ Redis中的List其实就是链表（Redis用双端链表实现List）。
 
 **常用命令：**
 
-![图](E:\markdown\images\redisListCommand.png)
+![图](images\redisListCommand.png)
 
 **使用技巧：**
 
@@ -57,7 +57,7 @@ Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的�
 
 **常用命令：**
 
-![图](E:\markdown\images\redisHashCommand.png)
+![图](images\redisHashCommand.png)
 
 **使用场景：**
 
@@ -69,7 +69,7 @@ Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这�
 
 **常用命令：**
 
-![图](E:\markdown\images\redisSetCommand.png)
+![图](images\redisSetCommand.png)
 
 **使用场景：**
 
@@ -89,7 +89,7 @@ Redis 有序集合和集合一样也是 string 类型元素的集合,且不允�
 
 **常用命令：**
 
-![图](E:\markdown\images\redisZsetCommand.png)
+![图](images\redisZsetCommand.png)
 
 **使用场景：**
 
@@ -111,7 +111,7 @@ Redis 有序集合和集合一样也是 string 类型元素的集合,且不允�
 
 ##### 3.1 Stream结构
 
-<img src="file:///E:/markdown/images/redisStreamConstruction.png" title="" alt="图" width="470">
+<img src="images/redisStreamConstruction.png" title="" alt="图" width="470">
 
 - **Consumer Group** ：消费组，使用 XGROUP CREATE 命令创建，一个消费组有多个消费者(Consumer), 这些消费者之间是竞争关系。
 - **last_delivered_id** ：游标，每个消费组会有个游标 last_delivered_id，任意一个消费者读取了消息都会使游标 last_delivered_id 往前移动。

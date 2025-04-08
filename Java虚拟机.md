@@ -46,7 +46,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 * 表是由多个无符号数或者其他表作为数据项构成的**复合数据类型**，所有表都习惯性的以“_info”结尾。表用于描述有层次关系的复合结构的数据，整个Class文件本质上就是一张表。
 
-<img title="" src="file:///E:/markdown/images/classFileFormat.png" alt="class文件格式" width="539">
+<img title="" src="images/classFileFormat.png" alt="class文件格式" width="667">
 
 ##### 1.2.1 魔数与class文件版本
 
@@ -68,7 +68,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 识别类或者接口的访问信息，包括以下信息
 
-![](E:\markdown\images\accFlag.png)
+![](images\accFlag.png)
 
 ##### 1.2.4 类索引
 
@@ -98,7 +98,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 * access_flags值列表
   
-  <img src="file:///E:/markdown/images/fieldsAccFlag.png" title="" alt="" width="589">
+  <img src="images/fieldsAccFlag.png" title="" alt="" width="589">
 
 * name_index对常量池的引用，表示字段的简单名称。
   
@@ -130,7 +130,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 * access_flags值列表
   
-  ![](E:\markdown\images\methodAccFlag.png)
+  ![](images\methodAccFlag.png)
 
 ##### 1.2.9 属性表
 
@@ -140,7 +140,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 ### 2. 类加载机制
 
-<img title="" src="file:///E:/markdown/images/classLoader.png" alt="" width="531">
+<img title="" src="images/classLoader.png" alt="" width="531">
 
 #### 2.1 类加载的时机
 
@@ -236,7 +236,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 ##### 2.3.3 双亲委派模型
 
-<img src="file:///E:/markdown/images/parentsDelegationModel.jpg" title="" alt="" width="416">
+<img src="images/parentsDelegationModel.jpg" title="" alt="" width="416">
 
 - 双亲委派模型要求除了启动类加载器之外每个类都有父类加载器。
 
@@ -256,7 +256,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 ###### 2.3.4.1 tomcat：典型的类加载器架构
 
-<img title="" src="file:///E:/markdown/images/tomcatClassLoader.jpg" alt="" align="right" width="416"> 
+<img title="" src="images/tomcatClassLoader.jpg" alt="" align="right" width="416"> 
 
 * Tomcat自定义了多个类加载器：
   
@@ -276,7 +276,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 ###### 2.3.4.2 osgi：灵活的类加载器架构
 
-<img src="file:///E:/markdown/images/osgiClassLoader.png" title="" alt="" width="397">
+<img src="images/osgiClassLoader.png" title="" alt="" width="397">
 
 * OSGi中的每个模块（俗称Bundle）加载器之间只有规则，没有固定的委托关系。例如，某个Bundle声明一个它依赖的Package，如果其他Bundle发布了这个Package，所有对这个Package的类加载动作都会委托给发布它的Bundle类加载器来完成。
 
@@ -286,9 +286,9 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 ### 3. 虚拟机内存结构
 
-<img src="file:///E:/markdown/images/virtualMachineMemoryMode.jpg" title="" alt="" width="482">
+<img src="images/virtualMachineMemoryMode.jpg" title="" alt="" width="482">
 
-<img src="file:///E:/markdown/images/virtualMachineParameters.jpg" title="虚拟机内存布局和对应参数" alt="虚拟机内存布局和对应参数" width="548">
+<img src="images/virtualMachineParameters.jpg" title="虚拟机内存布局和对应参数" alt="虚拟机内存布局和对应参数" width="548">
 
 ##### 3.1 程序计数器
 
@@ -334,7 +334,7 @@ Class文件是以一组以8位字节为基础单位的二进制流，各个数�
 
 * 虚拟机规范中，方法区是堆的逻辑组成部分，但是没有限制堆的存放位置。
 
-* hotspot中jdk6及之前方法区存放在堆内存中，称为永久代，受垃圾回收器管理。jdk7之后把放到永久代里面的运行时常量池移动到老年代。jdk8之后把方法区存储到本地内存中，称为元数据空间（Meta Space）。<img src="file:///E:/markdown/images/hotspotMethodChange.png" title="" alt="" width="604">
+* hotspot中jdk6及之前方法区存放在堆内存中，称为永久代，受垃圾回收器管理。jdk7之后把放到永久代里面的运行时常量池移动到老年代。jdk8之后把方法区存储到本地内存中，称为元数据空间（Meta Space）。<img src="images/hotspotMethodChange.png" title="" alt="" width="604">
   
   从永久代移动到元数据空间原因：
   
@@ -643,7 +643,7 @@ GC Root：虚拟机栈中栈帧中的本地变量表中引用的对象、方法�
 
 ##### 6.4 垃圾回收器
 
-<img title="" src="file:///E:/markdown/images/garbageCollector.png" alt="" width="598">
+<img title="" src="images/garbageCollector.png" alt="" width="598">
 
 ###### 6.4.1 Serial收集器
 

@@ -20,7 +20,7 @@
 
 ### 2. IO
 
-<img title="" src="file:///E:/markdown/images/ioStream.png" alt="" width="479">
+<img title="" src="images/ioStream.png" alt="" width="479">
 
 ##### 2.1 字节流和字符流的区别：
 
@@ -90,21 +90,21 @@ Unix 下有五种 I/O 模型:
 ##### 3.2 同步阻塞 I/O
 
 应用进程被阻塞，直到数据复制到应用进程缓冲区中才返回。在阻塞的过程中，其它程序还可以执行，因此阻塞不意味着整个操作系统都被阻塞。因为其他程序还可以执行，因此不消耗 CPU 时间，这种模型的执行效率会比较高。
-<img title="" src="file:///E:/markdown/images/blockingIOModel.png" alt="class文件格式" width="704">
+<img title="" src="images/blockingIOModel.png" alt="class文件格式" width="704">
 
 当用户进程调用了recv()/recvfrom()这个系统调用，`kernel就开始了IO的第一个阶段：准备数据`等待数据复制到内核缓冲区中，用户进程阻塞中。`第二个阶段：当kernel一直等到数据准备好了，它就会将数据从kernel中拷贝到用户内存`，然后kernel返回结果，用户进程才解除阻塞的状态，重新运行起来。所以，blocking IO的特点就是在IO执行的两个阶段都被block了。
 
 ##### 3.3 同步非阻塞 IO
 
 应用进程执行系统调用之后，内核返回一个错误码。应用进程未被阻塞，但是需要不断的执行系统调用来获知 I/O 是否完成，这种方式称为轮询(polling)。
-<img title="" src="file:///E:/markdown/images/nonblockingIOModel.png" alt="class文件格式" width="704">
+<img title="" src="images/nonblockingIOModel.png" alt="class文件格式" width="704">
 
 当用户进程调用了recv()/recvfrom()这个系统调用，`进程并没有被阻塞，内核马上返回给进程，如果数据还没准备好，此时会返回一个error`。`进程在返回之后，可以干点别的事情，然后再发起recvform系统调用。重复上面的过程，循环往复的进行recvform系统调用。`这个过程通常被称之为轮询。轮询检查内核数据，直到数据准备好，再拷贝数据到进程，进行数据处理。拷贝数据整个过程，进程仍然是属于阻塞的状态。nonblocking IO的特点是用户进程需要不断的主动询问kernel数据好了没有。
 
 ##### 3.4 IO 多路复用
 
 由于同步非阻塞方式需要不断主动轮询，轮询占据了很大一部分过程，轮询会消耗大量的CPU时间。UNIX/Linux 下的 select、poll、epoll支持当有数据通知用户线程。select或poll调用之后，会阻塞进程，与blocking IO阻塞不同在于，`此时的select不是等到socket数据全部到达再处理, 而是有了一部分数据就会调用用户进程来处理`。
-<img title="" src="file:///E:/markdown/images/IOMultiplexing.png" alt="class文件格式" width="704">
+<img title="" src="images/IOMultiplexing.png" alt="class文件格式" width="704">
 
 `当用户进程调用了select，那么整个进程会被block`，而同时，kernel会“监视”所有select负责的socket，`当任何一个socket中的数据准备好了，select就会返回`。这个时候用户进程再调用read操作，将数据从kernel拷贝到用户进程。`IO多路复用是阻塞在select，epoll这样的系统调用之上，而没有阻塞在真正的I/O系统调用如recvfrom之上。`
 
@@ -113,19 +113,19 @@ select，poll，epoll区别：select和poll需要传入文件描述符，select�
 ##### 3.5 信号驱动式IO
 
 应用进程使用 sigaction 系统调用，内核立即返回，应用进程可以继续执行，也就是说等待数据阶段应用进程是非阻塞的。内核在数据到达时向应用进程发送 SIGIO 信号，应用进程收到之后在信号处理程序中调用 recvfrom 将数据从内核复制到应用进程中。
-<img title="" src="file:///E:/markdown/images/signalDrivenIO.png" alt="class文件格式" width="704">
+<img title="" src="images/signalDrivenIO.png" alt="class文件格式" width="704">
 
 ##### 3.6 异步非阻塞 IO
 
 相对于同步IO，异步IO不是顺序执行。`用户进程进行aio_read系统调用之后，无论内核数据是否准备好，都会直接返回给用户进程，然后用户态进程可以去做别的事情`。等到socket数据准备好了，内核直接复制数据给进程，`然后从内核向进程发送通知`。`IO两个阶段，进程都是非阻塞的`。
-<img title="" src="file:///E:/markdown/images/asynchronousIO.png" alt="class文件格式" width="704">
+<img title="" src="images/asynchronousIO.png" alt="class文件格式" width="704">
 
 用户进程发起aio_read操作之后，立刻就可以开始去做其它的事。而另一方面，从kernel的角度，当它受到一个asynchronous read之后，`首先它会立刻返回，所以不会对用户进程产生任何block`。然后，kernel会等待数据准备完成，然后将数据拷贝到用户内存，`当这一切都完成之后，kernel会给用户进程发送一个signal或执行一个基于线程的回调函数来完成这次 IO 处理过程`，告诉它read操作完成了。
 
 ##### 3.7 五大 I/O 模型比较
 
 前四种 I/O 模型的主要区别在于第一个阶段，而第二个阶段是一样的: 将数据从内核复制到应用进程过程中，应用进程会被阻塞。
-<img title="" src="file:///E:/markdown/images/IOModelCompare.png" alt="class文件格式" width="704">
+<img title="" src="images/IOModelCompare.png" alt="class文件格式" width="704">
 
 ---
 
@@ -176,7 +176,7 @@ select，poll，epoll区别：select和poll需要传入文件描述符，select�
 
 目前流程的多路复用IO实现主要包括四种: `select`、`poll`、`epoll`、`kqueue`。
 
-<img title="" src="file:///E:/markdown/images/OSMultiplexing.png" alt="class文件格式" width="704">
+<img title="" src="images/OSMultiplexing.png" alt="class文件格式" width="704">
 
 ---
 
@@ -184,7 +184,7 @@ select，poll，epoll区别：select和poll需要传入文件描述符，select�
 
 ##### 5.1 传统IO模型
 
-<img title="" src="file:///E:/markdown/images/classicIOModel.png" alt="class文件格式" width="704">
+<img title="" src="images/classicIOModel.png" alt="class文件格式" width="704">
 
 特点：
 
@@ -201,7 +201,7 @@ select，poll，epoll区别：select和poll需要传入文件描述符，select�
 
 Jdk 1.4中就提供了一套非阻塞IO的API。该API本质上是以事件驱动来处理网络事件的，而Reactor是基于该API提出的一套IO模型。
 
-<img title="" src="file:///E:/markdown/images/singleReactorSingleThread.png" alt="class文件格式" width="704">
+<img title="" src="images/singleReactorSingleThread.png" alt="class文件格式" width="704">
 
 流程：
 
@@ -225,7 +225,7 @@ Jdk 1.4中就提供了一套非阻塞IO的API。该API本质上是以事件驱�
 
 在单线程Reactor模型的基础上提出了使用线程池的方式处理业务操作的模型。
 
-<img title="" src="file:///E:/markdown/images/singleReactorMultiThread.png" alt="class文件格式" width="704">
+<img title="" src="images/singleReactorMultiThread.png" alt="class文件格式" width="704">
 
 流程：
 
@@ -244,7 +244,7 @@ Jdk 1.4中就提供了一套非阻塞IO的API。该API本质上是以事件驱�
 
 对于使用线程池处理业务操作的模型，由于网络读写在高并发情况下会成为系统的一个瓶颈，因而针对该模型这里提出了一种改进后的模型，即使用线程池进行网络读写，而仅仅只使用一个线程专门接收客户端连接。
 
-<img title="" src="file:///E:/markdown/images/multiReactorMultiThread.png" alt="class文件格式" width="704">
+<img title="" src="images/multiReactorMultiThread.png" alt="class文件格式" width="704">
 
 流程：
 
@@ -341,7 +341,7 @@ Netty 是一个异步事件驱动的网络应用框架，用于快速开发可�
 
 ##### 7.2 netty的线程模型
 
-<img title="" src="file:///E:/markdown/images/nettyModel.png" alt="class文件格式" width="704">
+<img title="" src="images/nettyModel.png" alt="class文件格式" width="704">
 
 Netty 的线程模型并不是一成不变的。它通常采用一主多从，但是也可以根据实际需要配置启动参数，通过设置不同的启动参数，Netty 可以同时支持 “多主多从”。
 
@@ -545,7 +545,7 @@ Netty 的线程模型并不是一成不变的。它通常采用一主多从，�
 
 当前主流存储介质的读写性能，从磁盘到内存、内存到缓存、缓存到寄存器，每上一个台阶，性能就提升10倍。
 
-<img title="" src="file:///E:/markdown/images/computerStorageSpeed.png" alt="class文件格式" width="416">
+<img title="" src="images/computerStorageSpeed.png" alt="class文件格式" width="416">
 
 ##### 8.2 内核态和用户态
 
@@ -567,7 +567,7 @@ Netty 的线程模型并不是一成不变的。它通常采用一主多从，�
 
 * read write流程
   
-  <img title="" src="file:///E:/markdown/images/IOReadWrite.png" alt="class文件格式" width="577">
+  <img title="" src="images/IOReadWrite.png" alt="class文件格式" width="577">
   
   1. CPU 全程负责内存内的数据拷贝，参考磁盘介质的读写性能，这个操作是可以接受的，但是如果要让内存的数据和磁盘来回拷贝，这个时间消耗就非常的难看，因为磁盘、网卡的速度远小于内存，内存又远远小于 CPU；
   2. 4 次 copy + 4 次上下文切换，代价太高。
@@ -582,7 +582,7 @@ Netty 的线程模型并不是一成不变的。它通常采用一主多从，�
   write(sockfd, buf, len);
   ```
   
-  <img title="" src="file:///E:/markdown/images/IOMmapWrite.png" alt="class文件格式" width="593">
+  <img title="" src="images/IOMmapWrite.png" alt="class文件格式" width="593">
   
   流程：
   
@@ -606,7 +606,7 @@ Netty 的线程模型并不是一成不变的。它通常采用一主多从，�
   ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
   ```
   
-  <img title="" src="file:///E:/markdown/images/IOSendfile.png" alt="class文件格式" width="593">
+  <img title="" src="images/IOSendfile.png" alt="class文件格式" width="593">
   
   CPU一次数据拷贝，2次上下文切换。
 
@@ -614,7 +614,7 @@ Netty 的线程模型并不是一成不变的。它通常采用一主多从，�
   
   从 Linux 内核 2.4 版本开始起，对于支持网卡支持 SG-DMA 技术的情况下， sendfile() 系统调用的过程发生了点变化。
   
-  <img title="" src="file:///E:/markdown/images/IOSendfileSGDMA.png" alt="class文件格式" width="593">
+  <img title="" src="images/IOSendfileSGDMA.png" alt="class文件格式" width="593">
   
   流程：
   
